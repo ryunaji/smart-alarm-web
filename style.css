@@ -1,0 +1,13 @@
+body{font-family:'맑은 고딕';background:#fafafa;color:#333;text-align:center;margin:0;padding:20px;}
+h1{color:#f472b6;font-size:43px;}
+.container{background:#fff;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05);padding:20px;margin:20px auto;width:90%;max-width:600px;}
+label{font-size:18px;margin-right:8px;}
+input{margin:5px;padding:8px;border:1px solid #f9a8d4;border-radius:10px;}
+.btn{margin:8px;padding:12px 18px;background:#fff;border:2px solid #f9a8d4;border-radius:10px;color:#f472b6;cursor:pointer;font-size:16px;}
+.btn:hover{background:#f9a8d4;color:#fff;}
+.record-btn{margin:10px;padding:12px 20px;background:#fff;border:2px solid #f9a8d4;border-radius:10px;color:#f472b6;cursor:pointer;font-size:16px;}
+.record-btn:hover{background:#f9a8d4;color:#fff;}
+.card,.motivation-card,.table-container{background:#fff;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05);margin:20px auto;padding:24px;width:90%;max-width:800px;}
+table{width:100%;border-collapse:collapse;}
+th,td{padding:10px;border-bottom:1px solid #f3f4f6;}
+tr:hover{background:#fdf2f8;}

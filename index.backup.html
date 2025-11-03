@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>SMART ALARM</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style_routine_v19.css">
+</head>
+<body>
+  <h1>⏰ SMART ALARM</h1>
+  <div class="container">
+    <label for="alarmTime">알람 시각 설정:</label>
+    <input type="time" id="alarmTime">
+    <label for="snoozeRange">스누즈 (1~10분):</label>
+    <input type="number" id="snoozeRange" min="1" max="10" value="5">분
+    <button class="btn" id="setAlarm">알람 설정</button>
+    <button class="btn" id="stopAlarm">알람 종료</button>
+    <button class="btn" id="snoozeAlarm">스누즈</button>
+  </div>
+  <div id="status"></div>
+  <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+  <button class="record-btn" onclick="location.href='history.html'">📊 기록 보기</button>
+  <script src="app_v17.js"></script>
+  <script src="routine_v23.js"></script>
+</body>
+</html>
+  <!-- 🔽 오늘 리포트 보기 버튼 -->
+  <button id="openReport"
+    style="position:fixed;bottom:25px;right:25px;
+    background:#ff9ec4;border:none;border-radius:12px;
+    padding:10px 16px;color:white;font-weight:bold;
+    font-family:'맑은 고딕';cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);">
+    🌞 오늘 리포트 보기
+  </button>
+
+  <script>
+    document.getElementById("openReport").addEventListener("click", () => {
+      window.open("routine_report_plus.html", "_blank");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>🌸 스마트 알람 리포트 — Pink Edition</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {
+    font-family: '맑은 고딕', sans-serif;
+    background: linear-gradient(180deg, #ffe6f0 0%, #fff8fb 100%);
+    color: #444;
+    text-align: center;
+    padding: 30px;
+  }
+  h1 { color: #ff5c8a; margin-bottom: 5px; }
+  h2 { color: #ff7aa2; font-weight: normal; }
+  .summary {
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+    margin: 25px 0;
+  }
+  .card {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(255, 92, 138, 0.15);
+    padding: 20px; width: 200px; transition: transform .25s;
+  }
+  .card:hover { transform: scale(1.05); }
+  .card h3 { color:#ff5c8a; margin-bottom: 5px; }
+  .card p { font-size: 22px; font-weight: bold; margin:0; color:#555; }
+  #commentBox {
+    background: rgba(255,255,255,0.85);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 25px auto;
+    width: 600px;
+    box-shadow: 0 4px 15px rgba(255, 92, 138, 0.1);
+    color: #444; font-size: 17px;
+  }
+  canvas {
+    margin-top: 25px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(255, 92, 138, 0.15);
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+  <h1>🌞 스마트 알람 리포트</h1>
+  <h2>Party's Daily Feedback</h2>
+
+  <div class="summary">
+    <div class="card"><h3>📈 평균 점수</h3><p id="avgScore">-</p></div>
+    <div class="card"><h3>🏆 최고 점수</h3><p id="maxScore">-</p></div>
+    <div class="card"><h3>📅 주간 패턴</h3><p id="pattern">-</p></div>
+  </div>
+
+  <div id="commentBox">🩷 Party 코멘트를 불러오는 중...</div>
+  <canvas id="wakeChart" width="700" height="350"></canvas>
+
+<script>
+function loadData(){
+  const data = JSON.parse(localStorage.getItem("smart_alarm_analyzed")||"[]");
+  return data.slice(-7);
+}
+
+function renderReport(){
+  const records = loadData();
+  if(records.length===0){ alert("기록이 없습니다!"); return; }
+
+  const labels = records.map(r=>r.date);
+  const scores = records.map(r=>r.wakeScore);
+  const avg=(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1);
+  const max=Math.max(...scores).toFixed(1);
+  const days=["일","월","화","수","목","금","토"];
+  const freq={}; records.forEach(r=>{const d=days[new Date(r.date).getDay()];freq[d]=(freq[d]||0)+1;});
+  const topDay=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
+
+  document.getElementById("avgScore").innerText=avg+"점";
+  document.getElementById("maxScore").innerText=max+"점";
+  document.getElementById("pattern").innerText=`${topDay}요일에 가장 자주 일어났어요 ☀️`;
+
+  const latest=scores[scores.length-1];
+  const commentBox=document.getElementById("commentBox");
+  const comments={
+    high:["완벽한 아침이에요 🔥","오늘 에너지 만땅! ☀️","이 기세로 하루 종일 파이팅 💪"],
+    mid:["좋아요, 꾸준함이 멋져요 🌸","졸렸지만 해냈어요 ☕️","포기하지 않았네요 👍"],
+    low:["조금 피곤했죠? 내일은 일찍 자볼까요 🌙","괜찮아요, 꾸준히 하면 돼요 💗","조용히 일어났지만 전진이에요 ✨"]
+  };
+  const set=latest>=90?comments.high:latest>=75?comments.mid:comments.low;
+  const pick=set[Math.floor(Math.random()*set.length)];
+  commentBox.innerHTML=`<b>오늘 점수: ${latest.toFixed(1)}점</b><br>${pick}`;
+
+  const ctx=document.getElementById('wakeChart').getContext('2d');
+  new Chart(ctx,{
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        label:'기상 품질 점수',
+        data:scores,
+        borderColor:'#ff5c8a',
+        backgroundColor:'rgba(255,92,138,0.25)',
+        pointBackgroundColor:'#ff85a2',
+        pointBorderColor:'#fff',
+        fill:true,
+        tension:0.4,
+        borderWidth:3
+      }]
+    },
+    options:{
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#fff',
+          titleColor:'#ff5c8a',
+          bodyColor:'#555',
+          borderColor:'#ff9ec4',
+          borderWidth:1
+        }
+      },
+      scales:{
+        x:{
+          ticks:{color:'#ff7aa2',font:{weight:'bold'}},
+          grid:{color:'rgba(255,182,204,0.2)'}
+        },
+        y:{
+          ticks:{color:'#ff7aa2',font:{weight:'bold'}},
+          grid:{color:'rgba(255,182,204,0.2)'}
+        }
+      }
+    }
+  });
+}
+document.addEventListener("DOMContentLoaded",renderReport);
+</script>
+</body>
+</html>

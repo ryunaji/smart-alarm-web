@@ -1,0 +1,15 @@
+.routine-section{border:2px solid #ffafcc;border-radius:14px;padding:14px;margin-top:16px;background:#fff0f6}
+.routine-item{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.routine-item input[type="datetime-local"],
+.routine-item input[type="text"]{border:1px solid #ffc8dd;border-radius:8px;padding:6px 10px;font-family:"맑은 고딕",Malgun Gothic}
+.routine-item input[type="text"]{flex:1}
+.btn-save-routine{background:#ffafcc;color:#fff;border:none;border-radius:10px;padding:8px 14px;cursor:pointer;font-family:"맑은 고딕",Malgun Gothic}
+.routine-board{margin-top:14px;padding:12px;border-radius:10px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.routine-board h4{margin:0 0 6px 0;color:#ff5c8a}
+.confetti{position:fixed;inset:0;pointer-events:none;animation:fadeOut 1.2s ease 3s forwards}
+@keyframes fadeOut{to{opacity:0}}
+.shake-soft{animation:flash 1s infinite}
+.shake-med{animation:flash .5s infinite,shake 1s infinite}
+.shake-hard{animation:flash .2s infinite,shake .5s infinite}
+@keyframes flash{0%,100%{background:#fff}50%{background:#ffe6f0}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}

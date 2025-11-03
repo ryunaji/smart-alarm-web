@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>SMART ALARM 기록 리포트</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📊 SMART ALARM MONTHLY REPORT</h1>
+  <div class="report-card">
+    <canvas id="historyChart" width="600" height="300"></canvas>
+  </div>
+  <table id="historyTable">
+    <tr>
+      <th>날짜</th>
+      <th>반응시간(초)</th>
+      <th>스누즈(횟수)</th>
+      <th>상태</th>
+    </tr>
+  </table>
+
+  <button class="btn" onclick="location.href='index.html'">🏠 알람 화면으로 돌아가기</button>
+  
+  <script src="history.js"></script>
+</body>
+</html>
